@@ -1,0 +1,239 @@
+{
+  "title": "Rust Programming Roadmap — Beginner to Mastery",
+  "version": "3.0",
+  "language": "Rust",
+  "levels": [
+    {
+      "level": "Stage 1: Absolute Beginner",
+      "topics": [
+        {
+          "id": 1,
+          "concept": "Computer & Programming Basics",
+          "description": "Before deep-diving into Rust, you must understand how programs run. Code is written in text, compiled into machine code, and executed by the CPU. Variables store data in memory (RAM). Functions encapsulate reusable logic. Loops and conditions control the flow of execution. Understanding basic memory concepts (like variables needing physical space in RAM) is crucial for Rust.",
+          "real_world_example": "Writing a program is like writing a recipe. The CPU is the chef, memory is the kitchen counter, variables are the bowls holding ingredients, and functions are specific techniques like 'chop' or 'boil'.",
+          "code": "// Basic concepts conceptualized\n// Variables hold state\nlet temperature = 72;\n\n// Conditions control flow\nif temperature > 80 {\n    println!(\"It's hot!\");\n}\n\n// Loops repeat actions\nfor i in 1..4 {\n    println!(\"Day {}\", i);\n}",
+          "practice_questions": [
+            {
+              "q": "What is the physical component of a computer where variables are temporarily stored during execution?",
+              "a": "Random Access Memory (RAM)."
+            },
+            {
+              "q": "What is the purpose of compiling code?",
+              "a": "To translate human-readable source code into binary machine code instructions that the CPU can execute directly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Stage 2: Rust Fundamentals",
+      "topics": [
+        {
+          "id": 2,
+          "concept": "Install, Setup & Basic Syntax",
+          "description": "Rust uses 'rustup' for toolchain management and 'Cargo' as its package manager and build system. Variables are declared with 'let' and are immutable by default; you must use 'mut' to make them mutable. Rust supports shadowing (redeclaring a variable with the same name). Constants use 'const' and require explicit types.",
+          "real_world_example": "Cargo is like a factory manager. You tell Cargo 'cargo build', and it goes out, fetches all your raw materials (dependencies), assembles them, and gives you a finished product (binary executable).",
+          "code": "fn main() {\n    let x = 5; // Immutable\n    let mut y = 10; // Mutable\n    y += 5;\n\n    // Shadowing\n    let x = x + 1; \n\n    const MAX_POINTS: u32 = 100_000;\n    println!(\"x: {}, y: {}, Max: {}\", x, y, MAX_POINTS);\n}",
+          "practice_questions": [
+            {
+              "q": "What is the difference between Shadowing and Mutability?",
+              "a": "Mutability (`mut`) changes the value in the same memory location. Shadowing (`let` again) creates a brand new variable that hides the old one, allowing you to change the type."
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "concept": "Control Flow & Pattern Matching",
+          "description": "Rust provides `if`, `while`, `loop` (infinite loop), and `for` loops. More importantly, Rust heavily relies on `match` for pattern matching. `match` is extremely powerful, forcing exhaustive checking of all possible states, making it safer than traditional switch statements. The catch-all is represented by `_`.",
+          "real_world_example": "Pattern matching is like a highly strict mail-sorting facility. A package comes in, and it MUST fit into one of the designated bins. If a new type of package arrives and there's no bin for it, the facility halts (won't compile).",
+          "code": "fn main() {\n    let number = 1;\n    match number {\n        1 => println!(\"one\"),\n        2 | 3 => println!(\"two or three\"),\n        4..=10 => println!(\"four through ten\"),\n        _ => println!(\"other\"), // Catch-all\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "Why must a `match` expression be exhaustive?",
+              "a": "To guarantee at compile-time that no possible data state goes unhandled, preventing unexpected runtime crashes."
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "concept": "The Ownership System (MOST IMPORTANT)",
+          "description": "This is the core of Rust mastery. Rust prevents memory bugs without a Garbage Collector via 3 rules: 1. Every value has one owner. 2. Only one owner exists at a time. 3. Value drops when the owner goes out of scope. Assigning variables 'Moves' ownership. You can 'Borrow' values temporarily using immutable references (`&T`) or exactly one mutable reference (`&mut T`). Understanding the Stack vs Heap and the Borrow Checker is non-negotiable.",
+          "real_world_example": "Ownership is holding a unique key to a vault. You can give the key away (Move), let people look through the window (Immutable Borrow), or let exactly ONE person go inside alone to paint the walls (Mutable Borrow).",
+          "code": "fn main() {\n    let s1 = String::from(\"hello\");\n    let s2 = s1; // Ownership moved to s2.\n    // println!(\"{}\", s1); // ILLEGAL: s1 is invalid.\n\n    let mut s3 = String::from(\"world\");\n    let r1 = &s3; // Immutable borrow\n    let r2 = &s3; // Allowed\n    // let r3 = &mut s3; // ILLEGAL: Cannot borrow mutably while immutable borrows exist.\n}",
+          "practice_questions": [
+            {
+              "q": "Why does a `String` Move but an `i32` Copy?",
+              "a": "`String` manages dynamic memory on the Heap, so copying it would cause double-free bugs. `i32` is just raw bits on the Stack, so it is safely and cheaply Copied."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Stage 3: Intermediate Rust",
+      "topics": [
+        {
+          "id": 5,
+          "concept": "Structs, Enums & Collections",
+          "description": "Structs define custom data types. Tuple structs are unnamed fields. You can attach behavior using `impl` blocks (Methods and Associated Functions). Enums define a type by enumerating its possible variants, which can hold data. Standard Collections include `Vec<T>` (growable arrays), `String`, and `HashMap<K, V>`.",
+          "real_world_example": "A Struct is the blueprint for a 'Car' (has wheels, engine). An Enum is the 'State' of the car (Moving(speed), Parked, BrokenDown(reason)).",
+          "code": "struct User { name: String, age: u32 }\n\nimpl User {\n    fn new(name: String) -> Self { User { name, age: 0 } }\n    fn birthday(&mut self) { self.age += 1; }\n}\n\nenum Status { Active, Offline, Banned(String) }\n\nfn main() {\n    let mut users: std::collections::HashMap<String, Status> = std::collections::HashMap::new();\n    users.insert(\"Alice\".to_string(), Status::Active);\n}",
+          "practice_questions": [
+            {
+              "q": "What is the difference between a Method and an Associated Function in Rust?",
+              "a": "A Method takes `self` (or `&self`, `&mut self`) as its first parameter and operates on an instance. An Associated Function does not take `self` and is called on the struct itself, often used as a constructor (e.g., `String::new()`)."
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "concept": "Error Handling & Modules",
+          "description": "Rust uses the `Result<T, E>` enum for recoverable errors and `Option<T>` for absence of value. `unwrap()` and `expect()` extract values but panic on failure. The `?` operator propagates errors elegantly. Modules, Packages, and Crates organize code. `Cargo.toml` manages dependencies.",
+          "real_world_example": "Using `unwrap()` is like blindly trusting a parachute is packed correctly; if it isn't, you crash (`panic!`). Using `Result` and `?` is opening the bag, verifying it, and safely aborting the jump if it's empty.",
+          "code": "use std::fs::File;\n\n// The '?' operator returns the error immediately to the caller if File::open fails\nfn read_config() -> Result<File, std::io::Error> {\n    let file = File::open(\"config.toml\")?;\n    Ok(file)\n}",
+          "practice_questions": [
+            {
+              "q": "What separates beginners from good Rust developers regarding Error Handling?",
+              "a": "Beginners spam `.unwrap()` to make the compiler happy, causing fragile code. Good developers rigorously use `Result`, pattern matching, and custom error types to gracefully handle failures."
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "concept": "Traits & Generics",
+          "description": "Traits define shared behavior (like Interfaces). Generics allow you to write code that works on multiple types. Trait bounds (`T: Speak`) restrict generics to types that implement specific traits.",
+          "real_world_example": "A Trait is a 'Driver's License'. A Generic function `fn drive<T: License>(driver: T)` means 'I don't care who you are, as long as you have a License, you can drive'.",
+          "code": "trait Speak { fn speak(&self); }\n\nstruct Dog;\nimpl Speak for Dog { fn speak(&self) { println!(\"Woof\"); } }\n\n// Generic function with a Trait Bound\nfn make_sound<T: Speak>(animal: &T) {\n    animal.speak();\n}",
+          "practice_questions": [
+            {
+              "q": "What is a Default Implementation in a Trait?",
+              "a": "It allows you to provide a standard body for a trait method. Implementers of the trait can choose to use the default or override it with custom logic."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Stage 4: Advanced Rust",
+      "topics": [
+        {
+          "id": 8,
+          "concept": "Lifetimes Deep Dive & Smart Pointers",
+          "description": "Lifetimes (`'a`) annotate relationships between references, preventing dangling pointers. Lifetime elision allows the compiler to infer them automatically in simple cases. Smart Pointers include `Box<T>` (heap allocation), `Rc<T>` (shared ownership), `Arc<T>` (thread-safe shared ownership), and `RefCell<T>` (interior mutability - runtime borrow checking).",
+          "real_world_example": "A Lifetime `'a` is an expiration date sticker. You must guarantee the data doesn't expire before the reference does. `RefCell` is a locked box that checks your ID (borrow rules) at runtime instead of compile-time.",
+          "code": "fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {\n    if x.len() > y.len() { x } else { y }\n}\n\nuse std::rc::Rc;\nuse std::cell::RefCell;\nfn main() {\n    let shared_state = Rc::new(RefCell::new(5));\n    *shared_state.borrow_mut() += 1; // Interior mutability\n}",
+          "practice_questions": [
+            {
+              "q": "Why would you use `Box<T>`?",
+              "a": "To allocate data on the heap. This is required for recursive data structures (like Trees) where the size cannot be known at compile time."
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "concept": "Concurrency, Async Programming & Macros",
+          "description": "Safe concurrency uses OS Threads, message-passing Channels (mpsc), and `Mutex<T>` wrapped in `Arc<T>`. Async programming is for massive I/O bound concurrency using `async`/`await`, `Futures`, and Executors like `Tokio` or `async-std`. Macros (`macro_rules!`, Procedural) allow metaprogramming (code that writes code).",
+          "real_world_example": "Threads are hiring 10 workers to lift heavy boxes (CPU bound). Async is one waiter serving 100 tables; while one table reads the menu, the waiter serves another (I/O bound).",
+          "code": "use std::sync::{Arc, Mutex};\nuse std::thread;\n\nfn main() {\n    let counter = Arc::new(Mutex::new(0));\n    let mut handles = vec![];\n\n    for _ in 0..10 {\n        let counter = Arc::clone(&counter);\n        handles.push(thread::spawn(move || {\n            let mut num = counter.lock().unwrap();\n            *num += 1;\n        }));\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "Why is `Arc` used instead of `Rc` when passing data to a new thread?",
+              "a": "`Arc` uses Atomic instructions to safely update the reference count across threads, preventing data races that would corrupt standard `Rc`."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Stage 5: Professional Rust",
+      "topics": [
+        {
+          "id": 10,
+          "concept": "Unsafe Rust & Systems Programming",
+          "description": "Unsafe Rust (`unsafe { }`) disables certain safety checks, allowing raw pointer manipulation, Foreign Function Interfaces (FFI) with C code, and manual memory operations. Required for Systems Programming: managing memory layout, OS interaction, file systems, and building CLI tools or Database engines.",
+          "real_world_example": "Unsafe block is the 'manual override' switch. The compiler stops holding your hand, allowing you to interface directly with hardware or C libraries, but you accept 100% responsibility for segfaults.",
+          "code": "fn main() {\n    let mut num = 5;\n    let r1 = &mut num as *mut i32; // Raw pointer\n\n    unsafe {\n        *r1 = 10; // Dereferencing requires unsafe\n        println!(\"{}\", *r1);\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "Does an `unsafe` block disable the Borrow Checker?",
+              "a": "No. It only allows 5 specific superpowers (like dereferencing raw pointers). Standard references still strictly obey borrow checking inside an unsafe block."
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "concept": "Web Development & Database Integration",
+          "description": "Rust dominates high-performance backend development. Top frameworks include Actix Web, Axum, and Rocket. They handle REST APIs, WebSockets, and Authentication safely. Database Integration is achieved using SQLx (compile-time checked SQL) or Diesel ORM (Entity management).",
+          "real_world_example": "Building a web server in Rust (like Axum) means getting C-like performance and memory efficiency, but with the safety guarantees that prevent Heartbleed-style memory leaks.",
+          "code": "// Example of a conceptual Axum route handler\n/* \nasync fn get_user(Path(id): Path<u32>, State(pool): State<PgPool>) -> Json<User> {\n    let user = sqlx::query_as!(User, \"SELECT * FROM users WHERE id = $1\", id)\n        .fetch_one(&pool).await.unwrap();\n    Json(user)\n}\n*/",
+          "practice_questions": [
+            {
+              "q": "What makes `SQLx` unique compared to traditional ORMs?",
+              "a": "It connects to your live database during compile-time to verify that your SQL queries are syntactically correct and match the schema perfectly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Stage 6: Expert Rust",
+      "topics": [
+        {
+          "id": 12,
+          "concept": "Advanced Architecture, Embedded & Compilers",
+          "description": "Zero-cost abstractions mean high-level syntax compiles to the same machine code as hand-written low-level code. Lock-free programming and Distributed RPC systems push performance limits. Embedded Rust allows running bare-metal on microcontrollers (Arduino, Raspberry Pi). Compiler internals require understanding LLVM, MIR (Mid-level Intermediate Representation), and parsing.",
+          "real_world_example": "Expert Rust is taking the engine apart and modifying the pistons (Compiler Internals/MIR) or shrinking the engine so small it fits inside a smart thermostat (Embedded Bare-Metal).",
+          "code": "// `#![no_std]` is used in Embedded Rust to compile without an operating system\n#![no_std]\n#![no_main]\n\n#[panic_handler]\nfn panic(_info: &core::panic::PanicInfo) -> ! {\n    loop {} // Halt processor on error\n}",
+          "practice_questions": [
+            {
+              "q": "What does `#![no_std]` signify in an Embedded Rust project?",
+              "a": "It removes the standard library (which relies on OS features like heap allocators and filesystems), leaving only `core`, allowing code to run on bare-metal microcontrollers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Stage 7: Rust Mastery",
+      "topics": [
+        {
+          "id": 13,
+          "concept": "Ecosystem Contribution & Computer Science Foundations",
+          "description": "Mastery involves contributing to open-source crates (crates.io), the Rust compiler itself, and performing security audits. It requires deep CS knowledge alongside Rust: Data Structures (Trees, Graphs, DP), Operating Systems (Processes, Scheduling), and Networking (TCP/IP, Sockets). Best progression: CLI Tool -> Chat Server -> Async Web Server -> Mini Git Clone -> Distributed System / OS.",
+          "real_world_example": "Mastery is no longer just using tools, but inventing them. It's understanding the exact TCP packet structures (Networking) and writing a high-performance HTTP router from scratch using Lock-Free data structures.",
+          "code": "// A conceptual Node in a Graph data structure\nstruct Node {\n    id: u32,\n    edges: Vec<std::rc::Rc<std::cell::RefCell<Node>>>,\n}\n// Implementing complex algorithms like Dijkstra's requires deep \n// understanding of Rust's ownership models regarding cycles.",
+          "practice_questions": [
+            {
+              "q": "Why is implementing a Doubly-Linked List or Graph notoriously difficult for beginners in Rust?",
+              "a": "Because they inherently contain circular references (A points to B, B points to A). Rust's ownership model fights this by design, requiring advanced use of `Rc<RefCell<T>>` or raw pointers."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_concepts": 13,
+    "levels": {
+      "Stage 1": 1,
+      "Stage 2": 3,
+      "Stage 3": 3,
+      "Stage 4": 2,
+      "Stage 5": 2,
+      "Stage 6": 1,
+      "Stage 7": 1
+    },
+    "standards_covered": [
+      "Tokio Async & Axum",
+      "Embedded no_std",
+      "SQLx & Macros",
+      "LLVM & MIR"
+    ],
+    "key_themes": [
+      "Zero-cost Abstractions",
+      "Fearless Concurrency",
+      "Systems Programming",
+      "Compiler Internals"
+    ]
+  }
+}

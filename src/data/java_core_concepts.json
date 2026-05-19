@@ -1,0 +1,518 @@
+{
+  "title": "Complete Core Java Concepts: Beginner to Advanced",
+  "version": "2.0",
+  "language": "Java",
+  "levels": [
+    {
+      "level": "Beginner",
+      "topics": [
+        {
+          "id": 1,
+          "concept": "JVM, JRE, and JDK",
+          "description": "Java is 'Write Once, Run Anywhere' due to this architecture. The JDK (Java Development Kit) is the full suite for developers, containing compilers (javac) and tools. The JRE (Java Runtime Environment) provides the standard libraries and the runtime environment needed just to execute Java applications. The JVM (Java Virtual Machine) is the core engine that actually interprets and executes the compiled bytecode (.class files), translating it into machine-specific instructions.",
+          "real_world_example": "Think of a restaurant. The JDK is the entire kitchen (stoves, recipes, ingredients, chefs) needed to cook the meal. The JRE is the dining table, plates, and cutlery set up for eating. The JVM is the actual person sitting down and eating the meal.",
+          "code": "// Developer writes Hello.java\n// Runs: javac Hello.java -> Creates Hello.class (Bytecode)\n// Runs: java Hello -> JVM executes the bytecode\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println(\"Welcome to Java!\");\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "If an end-user only wants to run a Java application, do they need to install the JDK or the JRE?",
+              "a": "They only need the JRE (Java Runtime Environment). The JDK is only required for developing and compiling code."
+            },
+            {
+              "q": "How does bytecode make Java platform-independent?",
+              "a": "Bytecode is a universal format. Any operating system with a JVM can translate bytecode into its native machine instructions."
+            },
+            {
+              "q": "What is the difference between Just-In-Time (JIT) compilation and interpretation inside the JVM?",
+              "a": "Interpretation reads line-by-line (slower). JIT compiles frequently used bytecode into native machine code at runtime (much faster)."
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "concept": "Data Variables: Primitive vs Derived (Reference) Types",
+          "description": "Java is statically and strongly typed. Primitive types (int, double, boolean, char, byte, short, long, float) hold raw values directly in Stack memory. Derived or Reference types (Objects, Strings, Arrays, Collections) store a memory address (reference) on the Stack that points to a complex object located on the Heap memory. Derived types have methods and can be null, whereas primitives cannot.",
+          "real_world_example": "A Primitive variable is a wallet holding actual physical cash ($50). A Reference variable is a piece of paper with the GPS coordinates to a massive bank vault. The paper doesn't hold the money; it just points to where the money is stored.",
+          "code": "// Primitives (stored on stack)\nint age = 25;\ndouble salary = 75000.50;\nboolean isEmployed = true;\n\n// Derived / Reference types (stored on heap)\nString name = new String(\"Alice\");\nint[] numbers = {1, 2, 3};\nList<String> list = new ArrayList<>();\n\n// Autoboxing (Primitive <-> Derived Wrapper)\nInteger ageWrapper = age; // Converts int to Integer object",
+          "practice_questions": [
+            {
+              "q": "What is the difference between `int` and `Integer` in Java?",
+              "a": "int is a primitive type stored on the stack. Integer is a wrapper class object stored on the heap."
+            },
+            {
+              "q": "If two reference variables point to the exact same object in memory, what happens if you modify the object through one of the variables?",
+              "a": "Both variables will reflect the modification because they refer to the same memory location."
+            },
+            {
+              "q": "What is the default value of an uninitialized boolean instance variable?",
+              "a": "The default value of an uninitialized boolean instance variable is false."
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "concept": "Control Flow Statements",
+          "description": "Control flow statements dictate the order in which code executes. Decision-making statements (`if-else`, `switch`) fork the execution path based on boolean conditions. Looping statements (`for`, `while`, `do-while`) repeat a block of code until a condition is met. Branching statements (`break`, `continue`, `return`) alter the flow unconditionally.",
+          "real_world_example": "An ATM machine's logic. It checks if you have enough balance (`if-else`) before dispensing cash. If you enter the wrong PIN, it asks you to try again up to 3 times (`for` loop). If you request a receipt, it branches to the printing routine (`switch`).",
+          "code": "int balance = 1000;\nint withdrawal = 500;\n\nif (balance >= withdrawal) {\n    balance -= withdrawal;\n} else {\n    System.out.println(\"Insufficient funds\");\n}\n\n// Enhanced for-loop (for-each) introduced in Java 5\nint[] numbers = {1, 2, 3};\nfor (int num : numbers) {\n    if (num == 2) continue; // Skip printing 2\n    System.out.println(num);\n}",
+          "practice_questions": [
+            {
+              "q": "What is the difference between a `while` loop and a `do-while` loop?",
+              "a": "A while loop checks its condition before executing. A do-while loop executes at least once before checking its condition."
+            },
+            {
+              "q": "How has the `switch` statement been improved in recent Java versions (Java 14+)?",
+              "a": "Switch expressions were introduced, allowing arrow syntax (->), yielding values, and preventing fall-through without break statements."
+            },
+            {
+              "q": "What does the `break` keyword do when placed inside a loop?",
+              "a": "It immediately terminates the loop and transfers execution to the code directly following the loop block."
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "concept": "Arrays & Strings",
+          "description": "Arrays are fixed-size, contiguous memory structures that hold elements of the exact same type. Strings in Java are heavily optimized, immutable sequences of characters. Because they are immutable, modifying a String actually creates a brand new object in the 'String Pool' area of the Heap, which saves memory when identical strings are reused.",
+          "real_world_example": "An Array is like an egg carton: it holds exactly 12 eggs, and you can't magically stretch the cardboard to hold 13. A String is like your name printed on a secure, laminated ID card. If you change your name, you don't erase the ink; you have to throw the card away and print a completely new one.",
+          "code": "int[] scores = new int[3]; // Fixed size of 3\nscores[0] = 95;\n\nString greeting = \"Hello\";\n// This does NOT modify the original string.\n// It creates a new String \"Hello World\" and points 'greeting' to it.\ngreeting = greeting.concat(\" World\");\n\n// StringBuilder is used for mutable strings to save memory in loops\nStringBuilder sb = new StringBuilder(\"Hello\");\nsb.append(\" World\");",
+          "practice_questions": [
+            {
+              "q": "Why is the `String` class made immutable in Java?",
+              "a": "For security, thread-safety, and performance (allowing String caching via the String Pool)."
+            },
+            {
+              "q": "What is the difference between `String`, `StringBuilder`, and `StringBuffer`?",
+              "a": "String is immutable. StringBuilder is mutable but not thread-safe. StringBuffer is mutable and thread-safe (synchronized)."
+            },
+            {
+              "q": "What happens if you try to access `scores[5]` in an array of size 3?",
+              "a": "An ArrayIndexOutOfBoundsException is thrown at runtime."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Object-Oriented Programming (OOP)",
+      "topics": [
+        {
+          "id": 4,
+          "concept": "OOP Basics: Classes & Objects",
+          "description": "Object-Oriented Programming models software around real-world entities. A Class is a blueprint that defines state (fields/attributes) and behavior (methods). An Object is a tangible, in-memory instance created from that blueprint using the `new` keyword.",
+          "real_world_example": "A 'Car' is the class blueprint on an engineer's desk. It specifies that a car has a color and an engine. 'My red Honda Civic' parked in the driveway is the Object. You can build thousands of actual car objects from the single car blueprint.",
+          "code": "class Car {\n    String color; // State\n    \n    void drive() { // Behavior\n        System.out.println(\"Driving a \" + color + \" car\");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Car myCar = new Car(); // Instantiation\n        myCar.color = \"Red\";\n        myCar.drive();\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "What happens in memory when you use the `new` keyword?",
+              "a": "Memory is allocated on the Heap for the object, and the constructor is called to initialize its state."
+            },
+            {
+              "q": "Can a Class exist without any Objects being created from it?",
+              "a": "Yes. A Class is just a blueprint. It exists in the code whether it's instantiated or not."
+            },
+            {
+              "q": "What is a static variable, and how does it differ from an instance variable?",
+              "a": "A static variable belongs to the Class itself and is shared among all instances. Instance variables belong to individual objects."
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "concept": "Constructors & 'this' Keyword",
+          "description": "Constructors are special blocks of code executed instantly when an object is created. They have the exact same name as the class and do not have a return type. They are used to initialize the object's initial state. The `this` keyword refers to the current executing object instance and is heavily used to resolve naming collisions between instance variables and constructor parameters.",
+          "real_world_example": "When opening a bank account (Object Creation), you don't open an empty account and later set the name. The banker asks for your name and initial deposit right at the moment of creation (The Constructor) so the account is immediately valid.",
+          "code": "class BankAccount {\n    String owner;\n    double balance;\n\n    // Parameterized Constructor\n    public BankAccount(String owner, double balance) {\n        // 'this' distinguishes the instance variable from the parameter\n        this.owner = owner;   \n        this.balance = balance;\n    }\n    \n    // Constructor overloading\n    public BankAccount(String owner) {\n        this(owner, 0.0); // Calls the other constructor\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "If you do not write a constructor in your class, does the class still have one?",
+              "a": "Yes, the Java compiler automatically inserts a hidden, no-argument Default Constructor if none are explicitly written."
+            },
+            {
+              "q": "What is constructor overloading?",
+              "a": "Defining multiple constructors in a class with different parameter lists to provide various ways of instantiation."
+            },
+            {
+              "q": "Can you call one constructor from another constructor within the same class? If so, how?",
+              "a": "Yes, using the this() keyword. It must be the very first statement in the constructor."
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "concept": "Inheritance & Polymorphism",
+          "description": "Inheritance (`extends`) allows a child class to inherit fields and methods from a parent class, promoting code reuse. Java only supports single inheritance for classes. Polymorphism ('many forms') allows an object to be treated as an instance of its parent class, enabling dynamic method dispatch (overriding), where the JVM decides at runtime which child method to execute.",
+          "real_world_example": "Animal (Parent) -> Dog (Child). A Dog inherits the ability to `eat()` from Animal. However, it uses polymorphism to `@Override` the `makeSound()` method. If you tell a generic Animal to make a sound, but the actual object in memory is a Dog, it will dynamically bark instead of making a generic noise.",
+          "code": "class Animal {\n    void makeSound() { System.out.println(\"Generic sound\"); }\n}\nclass Cat extends Animal {\n    @Override\n    void makeSound() { System.out.println(\"Meow!\"); }\n}\npublic class Main {\n    public static void main(String[] args) {\n        Animal myPet = new Cat(); // Polymorphism (Upcasting)\n        myPet.makeSound(); // JVM resolves this to 'Meow!' at runtime\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "Why does Java not support multiple inheritance for classes?",
+              "a": "To prevent the 'Diamond Problem', where the compiler wouldn't know which parent's method to inherit if both had the same signature."
+            },
+            {
+              "q": "What is the difference between Method Overloading (Compile-time) and Method Overriding (Runtime)?",
+              "a": "Overloading is multiple methods with the same name but different parameters. Overriding is a subclass redefining a parent's method."
+            },
+            {
+              "q": "What does the `super` keyword do in a child class?",
+              "a": "It is used to call the parent class's constructor or methods, explicitly bypassing the child class's implementations."
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "concept": "Encapsulation & Access Modifiers",
+          "description": "Encapsulation is the bundling of data (fields) and methods that operate on that data into a single unit, while restricting direct external access to the internal state. This is achieved using access modifiers (`private`, `default/package-private`, `protected`, `public`). It protects object integrity by forcing external code to use Getter and Setter methods, which can include validation logic.",
+          "real_world_example": "A professional coffee machine hides its dangerously hot water boiler and pressure mechanisms behind a locked metal casing (private). You are only allowed to interact with the machine by pressing the specific 'Brew' button on the front panel (public method).",
+          "code": "class User {\n    private String password; // Cannot be accessed directly\n\n    // Public setter with business logic validation\n    public void setPassword(String pwd) {\n        if (pwd != null && pwd.length() >= 8) {\n            this.password = pwd;\n        } else {\n            throw new IllegalArgumentException(\"Password too weak\");\n        }\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "What is the scope of the `protected` access modifier?",
+              "a": "Protected members are accessible within the same package and by subclasses in other packages."
+            },
+            {
+              "q": "How does encapsulation improve the maintainability of a large codebase?",
+              "a": "By hiding internal fields, you can change the internal implementation later without breaking the code of external users."
+            },
+            {
+              "q": "If a class has only private fields and no setter methods, what kind of object is it?",
+              "a": "An immutable object. Its state is set once during construction and cannot be changed thereafter."
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "concept": "Interfaces & Abstract Classes",
+          "description": "Abstract classes (using the `abstract` keyword) cannot be instantiated and are used to share code among closely related classes. They can have both implemented methods and abstract (empty) methods. Interfaces represent a strict contract detailing 'what' a class can do without defining 'how'. A class can implement multiple interfaces, bypassing Java's single inheritance limitation.",
+          "real_world_example": "An Interface `Flyable` ensures anything implementing it has a `fly()` method (Birds, Airplanes, Superman). An Abstract Class `Vehicle` has actual working code for `startEngine()`, but leaves the `steer()` method blank because steering a Car is mechanically different from steering a Boat.",
+          "code": "interface Flyable {\n    void fly(); // Abstract by default\n}\nabstract class Vehicle {\n    void start() { System.out.println(\"Engine started\"); } // Shared logic\n    abstract void steer(); // Must be implemented by child\n}\nclass Drone extends Vehicle implements Flyable {\n    void steer() { System.out.println(\"Using joysticks\"); }\n    public void fly() { System.out.println(\"Spinning rotors\"); }\n}",
+          "practice_questions": [
+            {
+              "q": "Can an Interface have variables? If so, what are their implicit modifiers?",
+              "a": "Yes, they are implicitly public, static, and final (constants)."
+            },
+            {
+              "q": "Since Java 8, interfaces can have method implementations. What is this feature called?",
+              "a": "Default methods. They provide backward compatibility so new methods can be added to interfaces without breaking existing implementations."
+            },
+            {
+              "q": "When designing a system, how do you decide whether to use an Abstract Class or an Interface?",
+              "a": "Use Abstract Classes for shared base code/state. Use Interfaces to define a contract for unrelated classes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Intermediate",
+      "topics": [
+        {
+          "id": 10,
+          "concept": "Exception Handling",
+          "description": "Exceptions disrupt the normal flow of the program. Java uses `try`, `catch`, `finally`, and `throw` to manage them gracefully so the app doesn't crash. Java has Checked Exceptions (must be handled at compile-time, e.g., IOException) and Unchecked Exceptions (occur at runtime, e.g., NullPointerException).",
+          "real_world_example": "You are printing a document. If the printer runs out of paper mid-print, it throws a 'PaperOutException'. Instead of the computer exploding, a `catch` block catches the exception, pauses the job, and alerts you to add paper. The `finally` block ensures the printer connection is closed regardless of success or failure.",
+          "code": "public void readFile(String path) {\n    try {\n        // Risky code\n        FileReader reader = new FileReader(path);\n    } catch (FileNotFoundException e) {\n        // Handling the error gracefully\n        System.err.println(\"File missing: \" + e.getMessage());\n    } finally {\n        // Always executes, even if an exception occurs\n        System.out.println(\"Cleanup resources\");\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "What is the functional difference between the `throw` keyword and the `throws` keyword?",
+              "a": "'throw' actually triggers an exception instance. 'throws' is a method signature declaration indicating it might throw an exception."
+            },
+            {
+              "q": "Why is the `finally` block mostly used for closing database connections and file streams?",
+              "a": "Because the finally block is guaranteed to execute whether an exception occurs or not, preventing resource leaks."
+            },
+            {
+              "q": "Is `RuntimeException` a Checked or Unchecked exception?",
+              "a": "It is an Unchecked exception. The compiler does not force you to catch it or declare it."
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "concept": "Deep Dive: Java Collection Classes",
+          "description": "The JCF provides standardized data structures. List (ArrayList: dynamic array, fast lookup; LinkedList: doubly-linked, fast insert/delete). Set (HashSet: unordered hash table, unique items; TreeSet: Red-Black tree, sorted order). Map (HashMap: key-value hash table; TreeMap: sorted map). Queue (PriorityQueue: FIFO with ordering). Understanding the underlying data structures is critical for choosing the right collection for performance.",
+          "real_world_example": "A `List` is your grocery list: you can write \"Milk\" twice, and the order you wrote items matters. A `Set` is a collection of employee ID badges: no two badges can have the same ID. A `Map` is a physical dictionary: you look up a unique word (Key) to find its definition (Value).",
+          "code": "// List: Dynamic Array vs Linked Nodes\nList<String> arrayList = new ArrayList<>(); // Fast get(index)\nList<String> linkedList = new LinkedList<>(); // Fast add(index, element)\n\n// Set: HashSet (O(1)) vs TreeSet (O(log n))\nSet<Integer> hashSet = new HashSet<>();\nSet<Integer> treeSet = new TreeSet<>(); // Automatically sorts items\n\n// Map: Key-Value pairing\nMap<String, String> map = new HashMap<>();\nmap.put(\"USA\", \"Washington\");",
+          "practice_questions": [
+            {
+              "q": "Why would you choose a `LinkedList` over an `ArrayList`?",
+              "a": "When your application heavily relies on inserting and deleting elements in the middle of the list."
+            },
+            {
+              "q": "How does a `HashSet` guarantee that all its elements are unique?",
+              "a": "It uses a HashMap internally. It hashes the element and checks if the key already exists before inserting."
+            },
+            {
+              "q": "Does the `Map` interface extend the `Collection` interface? Explain.",
+              "a": "No, it does not. Maps handle key-value pairs, whereas Collections handle individual elements. They are separate hierarchies."
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "concept": "Generics",
+          "description": "Introduced in Java 5, Generics allow types (classes and interfaces) to be passed as parameters when defining classes, interfaces, and methods. This provides immense compile-time type safety by catching ClassCastExceptions early and eliminating the need for manual casting when retrieving objects from Collections.",
+          "real_world_example": "Imagine a generic shipping box. Without generics, it's just a 'Box', and someone could accidentally put a toxic chemical into a box meant for food. With generics, you label it `Box<Food>`. Now, if someone tries to put bleach into it, the system (compiler) strictly forbids it immediately.",
+          "code": "// Generic Class Definition\nclass Box<T> {\n    private T item;\n    public void set(T item) { this.item = item; }\n    public T get() { return item; }\n}\n\n// Usage: Compile-time type safety\nBox<String> stringBox = new Box<>();\nstringBox.set(\"Hello\");\n// stringBox.set(123); // Compile-time Error!\nString item = stringBox.get(); // No manual casting required",
+          "practice_questions": [
+            {
+              "q": "What is 'Type Erasure' in Java Generics?",
+              "a": "The compiler removes all generic type parameters during compilation, replacing them with Object or their bounds to maintain backward compatibility."
+            },
+            {
+              "q": "Can you instantiate a generic type parameter like `new T()`? Why or why not?",
+              "a": "No, because of Type Erasure. The JVM doesn't know what T is at runtime, so it cannot allocate memory for it."
+            },
+            {
+              "q": "Explain the difference between `List<?>` (Wildcard) and `List<Object>`.",
+              "a": "List<?> can hold a list of any specific type, but is read-only. List<Object> can hold objects of any type mixed together."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Advanced",
+      "topics": [
+        {
+          "id": 13,
+          "concept": "Multithreading & Concurrency",
+          "description": "Multithreading allows a Java program to perform multiple tasks simultaneously by sharing the same memory space. Threads are managed by extending the `Thread` class or implementing the `Runnable` interface. Because threads share memory, accessing the same variable simultaneously causes 'data races'. The `synchronized` keyword locks a resource so only one thread can access it at a time.",
+          "real_world_example": "A busy restaurant kitchen. If you only have one chef (Single Thread), they must chop veggies, then cook meat, then plate. Multithreading is having 5 chefs cooking simultaneously. However, they share one oven (Shared Memory). The `synchronized` keyword is the lock on the oven door preventing two chefs from putting food in the exact same spot at the same time.",
+          "code": "class BankAccount {\n    private int balance = 100;\n    \n    // Prevents two threads from withdrawing simultaneously\n    public synchronized void withdraw(int amount) {\n        if (balance >= amount) {\n            balance -= amount;\n        }\n    }\n}\n\nThread t1 = new Thread(() -> System.out.println(\"Async Task\"));\nt1.start();",
+          "practice_questions": [
+            {
+              "q": "What is a deadlock, and how does it occur in multithreaded programming?",
+              "a": "When two or more threads block each other forever, each waiting for a lock held by the other."
+            },
+            {
+              "q": "Why is implementing the `Runnable` interface generally preferred over extending the `Thread` class?",
+              "a": "Because Java allows multiple interface implementation but only single class inheritance. Implementing Runnable leaves your class free to extend another class."
+            },
+            {
+              "q": "What does the `join()` method do on a Thread object?",
+              "a": "It forces the current thread to wait until the thread on which join() was called completes its execution."
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "concept": "Java 8+ Features (Lambdas & Functional Interfaces)",
+          "description": "Java 8 introduced functional programming concepts. A Functional Interface is an interface with exactly ONE abstract method (annotated with `@FunctionalInterface`). Lambda expressions (`->`) provide a clear, incredibly concise way to implement these interfaces inline, effectively allowing you to pass blocks of code as arguments to methods.",
+          "real_world_example": "Traditionally (Anonymous Inner Class), if you wanted a wall painted, you had to hire a formal painting agency, sign a 10-page contract, and wait for them to dispatch a painter. A Lambda is just handing your friend a brush and casually saying, \"paint it blue\". It is the exact same result with 90% less boilerplate.",
+          "code": "@FunctionalInterface\ninterface MathOperation {\n    int operate(int a, int b);\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        // Concise Lambda expression replacing an Anonymous Inner Class\n        MathOperation addition = (a, b) -> a + b;\n        MathOperation multiplication = (a, b) -> a * b;\n        \n        System.out.println(addition.operate(5, 3)); // 8\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "Can a Functional Interface contain `default` or `static` methods? Explain.",
+              "a": "Yes. Functional Interfaces only restrict the number of abstract methods to exactly one. Default and static methods do not count."
+            },
+            {
+              "q": "What is a Method Reference (`::`) and how does it relate to Lambdas?",
+              "a": "It is a shorthand syntax for a lambda expression that simply calls an existing method."
+            },
+            {
+              "q": "Name three built-in functional interfaces provided in the `java.util.function` package.",
+              "a": "Predicate<T>, Function<T,R>, and Consumer<T>."
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "concept": "Stream API",
+          "description": "Also introduced in Java 8, the Stream API allows declarative, functional-style operations on collections of elements. It supports complex data processing pipelines with operations like `filter`, `map`, `reduce`, and `sorted`. Streams do not modify the original collection, and they are evaluated 'lazily'—meaning computations are only performed when a terminal operation (like `collect` or `forEach`) is invoked.",
+          "real_world_example": "An assembly line in a car factory. The raw metal parts flow down the belt (the Stream). The sorting machine rejects bad parts (`filter`), the painting machine paints them red (`map`), and the final packing machine puts them in a shipping crate (the terminal `collect` operation).",
+          "code": "List<String> names = Arrays.asList(\"Alice\", \"Bob\", \"Charlie\", \"Dave\");\n\n// Declarative pipeline replacing complex loop logic\nList<String> result = names.stream()\n    .filter(name -> name.length() > 3)  // Keeps Alice, Charlie, Dave\n    .map(String::toUpperCase)           // ALICE, CHARLIE, DAVE\n    .sorted()                           // ALICE, CHARLIE, DAVE\n    .collect(Collectors.toList());      // Triggers execution and collects to a List",
+          "practice_questions": [
+            {
+              "q": "Explain the difference between Intermediate Operations and Terminal Operations in Streams.",
+              "a": "Intermediate operations (like filter) return a new stream. Terminal operations (like collect) produce a final result and close the stream."
+            },
+            {
+              "q": "What does it mean that Java Streams are 'lazy'?",
+              "a": "Stream operations are not executed until a terminal operation is invoked."
+            },
+            {
+              "q": "How can you convert a standard sequential stream into a parallel stream to utilize multi-core processors?",
+              "a": "By simply calling the .parallelStream() method instead of .stream() on a collection."
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "concept": "Memory Management & Garbage Collection",
+          "description": "Unlike C/C++, Java handles memory management automatically. Objects are dynamically allocated on the Heap memory. The Garbage Collector (GC) is a background daemon thread that periodically scans the Heap. It identifies objects that are no longer reachable by any active reference in the program and automatically deletes them to free up memory.",
+          "real_world_example": "A busboy at a busy restaurant. You (the developer) sit at a table and order plates of food (creating objects). You never have to carry your dirty plates to the kitchen. When you leave the table (lose reference to the objects), the busboy (Garbage Collector) silently comes by, clears the dirty plates, and frees the table for the next customer.",
+          "code": "public void createData() {\n    // Object allocated on the Heap\n    LargeData obj = new LargeData(); \n    obj.process();\n    \n    // Method ends. 'obj' reference is popped off the Stack.\n    // The LargeData object on the Heap is now unreachable.\n    // The Garbage Collector will eventually delete it.\n}",
+          "practice_questions": [
+            {
+              "q": "Can you force the Java Garbage Collector to run immediately using `System.gc()`?",
+              "a": "No. System.gc() is merely a request or suggestion to the JVM. The JVM decides when to actually run the GC."
+            },
+            {
+              "q": "What is a memory leak in Java, and how is it possible if Java has a Garbage Collector?",
+              "a": "It occurs when objects are no longer used by the application, but a stray reference prevents the GC from removing them."
+            },
+            {
+              "q": "Explain the generational garbage collection model (Young Generation vs Old Generation).",
+              "a": "Most objects die young. The Heap is split. New objects go to the Young Generation (fast GC). Survivors move to the Old Generation (slower, infrequent GC)."
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "concept": "Reflection API",
+          "description": "Reflection is a powerful, advanced feature that allows a running Java program to inspect and modify its own structure at runtime. Using Reflection, you can instantiate objects, invoke methods, and read/write fields—even if those fields and methods are marked as `private`. It is the engine behind massive frameworks like Spring, Hibernate, and JUnit.",
+          "real_world_example": "An airport X-ray security scanner. Normally, your suitcase is locked and no one can see inside it (Encapsulation / Private fields). Reflection is the X-ray machine: it allows the security officer (the JVM) to completely bypass the lock, look inside the bag, and even pull items out at runtime without having the key.",
+          "code": "Class<?> clazz = Class.forName(\"com.example.SecretClass\");\nObject instance = clazz.getDeclaredConstructor().newInstance();\n\n// Accessing a private field bypassing encapsulation\nField secretField = clazz.getDeclaredField(\"hiddenPassword\");\nsecretField.setAccessible(true); // Breaks the 'private' lock\nString password = (String) secretField.get(instance);",
+          "practice_questions": [
+            {
+              "q": "Why is using Reflection generally discouraged for standard business logic?",
+              "a": "It breaks encapsulation, bypasses compile-time type checking, and is significantly slower than direct access."
+            },
+            {
+              "q": "How do frameworks like Spring use Reflection to enable Dependency Injection?",
+              "a": "They use Reflection to inspect annotations (like @Autowired) and dynamically inject dependencies into private fields at runtime."
+            },
+            {
+              "q": "What exception is thrown if you try to use Reflection to find a class that does not exist on the classpath?",
+              "a": "ClassNotFoundException."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": "Top-Notch / Expert",
+      "topics": [
+        {
+          "id": 18,
+          "concept": "Concurrency Utilities (java.util.concurrent)",
+          "description": "Manually creating and managing raw `Thread` objects is dangerous and inefficient for large applications. The `java.util.concurrent` package provides expert-level abstractions. `ExecutorService` manages scalable thread pools. `CountDownLatch` and `CyclicBarrier` orchestrate multiple threads. Thread-safe collections like `ConcurrentHashMap` use advanced locking mechanisms (lock striping) to allow high-throughput concurrent access without blocking the entire data structure.",
+          "real_world_example": "A massive call center. You don't hire a brand new employee, train them, let them answer one single phone call, and then fire them (creating raw Threads). Instead, you hire a pool of 50 permanent operators (ThreadPool/ExecutorService). Thousands of incoming calls queue up, and whenever an operator finishes a call, they immediately grab the next one.",
+          "code": "// Create a thread pool with exactly 10 reusable threads\nExecutorService executor = Executors.newFixedThreadPool(10);\n\nfor (int i = 0; i < 1000; i++) {\n    final int taskId = i;\n    executor.submit(() -> {\n        // 1000 tasks are efficiently processed by only 10 threads\n        System.out.println(\"Processing task \" + taskId + \" on \" + Thread.currentThread().getName());\n    });\n}\nexecutor.shutdown(); // Gracefully stop accepting new tasks",
+          "practice_questions": [
+            {
+              "q": "What is the difference between `execute()` and `submit()` in an ExecutorService?",
+              "a": "execute() is for Runnable and returns nothing. submit() takes a Callable and returns a Future object to track the result."
+            },
+            {
+              "q": "How does `ConcurrentHashMap` achieve higher concurrency performance than `Collections.synchronizedMap()`?",
+              "a": "It uses fine-grained locking (lock striping), locking only the specific bucket being updated rather than the entire map."
+            },
+            {
+              "q": "What does a `CountDownLatch` do, and in what scenario would you use it?",
+              "a": "It blocks a thread until a specified number of other operations complete, used to coordinate starting multiple threads simultaneously."
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "concept": "Java Memory Model (JMM) & 'volatile'",
+          "description": "The Java Memory Model specifies how multiple threads interact through memory. Modern CPUs have multiple cores, and each core has its own ultra-fast L1/L2 cache. By default, threads copy shared variables into their local CPU cache for speed, leading to visibility problems where Thread A changes a variable, but Thread B doesn't see the change because it's reading from a stale cache. The `volatile` keyword forces all threads to read and write that variable directly to the main system memory, guaranteeing visibility.",
+          "real_world_example": "A shared whiteboard in an office. Without `volatile`, employees copy the whiteboard data onto their personal notepads at their desks (CPU Cache). If Bob updates his notepad, Alice doesn't see it. With `volatile`, personal notepads are banned; every employee is forced to walk out to the hallway and read/write directly on the main shared whiteboard (Main Memory).",
+          "code": "class ServerControl {\n    // Guarantees visibility across all CPU cores instantly\n    private volatile boolean isRunning = true;\n    \n    public void stopServer() {\n        isRunning = false; // Write is flushed to main memory\n    }\n    \n    public void runServer() {\n        while(isRunning) { \n            // Read is forced from main memory, avoiding infinite loops\n            processRequests(); \n        }\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "Does the `volatile` keyword guarantee atomicity (e.g., for an operation like `count++`)? Why or why not?",
+              "a": "No. It guarantees visibility across threads, but compound operations like count++ (read, add, write) can still race. Use AtomicInteger."
+            },
+            {
+              "q": "What is the 'happens-before' relationship in the Java Memory Model?",
+              "a": "It guarantees that memory writes by one specific operation are visible to another specific operation in a multithreaded environment."
+            },
+            {
+              "q": "When should you use `AtomicInteger` instead of a `volatile int`?",
+              "a": "When you need to perform compound atomic operations (like incrementing or compare-and-swap) without using synchronized blocks."
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "concept": "Modern Java Features (Records, Pattern Matching, Virtual Threads)",
+          "description": "Java is evolving rapidly. Java 14 introduced `Records`, a concise syntax for creating immutable data-carrier classes without writing getters, constructors, or `hashCode`. Java 16 finalized `Pattern Matching for instanceof`, removing the need for redundant casting. Java 21 introduced `Virtual Threads` (Project Loom), which are feather-weight, JVM-managed threads that allow you to create millions of concurrent threads without exhausting the underlying OS threads.",
+          "real_world_example": "Virtual Threads: Previously, an OS thread was like a massive cargo plane—you couldn't have many of them, and loading them was expensive. Virtual Threads are like thousands of lightweight delivery drones operating simultaneously. They allow server applications to handle millions of simultaneous user connections flawlessly using a standard, blocking coding style.",
+          "code": "// Java 14+ Record (Generates constructor, getters, equals, hashCode automatically)\npublic record UserDto(String name, String email) {}\n\n// Java 16+ Pattern Matching\nObject obj = \"Modern Java\";\nif (obj instanceof String s) { // s is automatically cast to String\n    System.out.println(s.toUpperCase()); \n}\n\n// Java 21+ Virtual Threads\nThread.startVirtualThread(() -> {\n    System.out.println(\"Running in a feather-weight virtual thread!\");\n});",
+          "practice_questions": [
+            {
+              "q": "Why can't a Java `Record` extend another class?",
+              "a": "Because all Records implicitly extend the java.lang.Record class, and Java does not support multiple inheritance."
+            },
+            {
+              "q": "How do Virtual Threads solve the 'Thread-per-request' scalability limit in traditional Java web servers?",
+              "a": "They are lightweight, JVM-managed threads. Millions can exist simultaneously without consuming massive OS thread memory."
+            },
+            {
+              "q": "Explain how the `yield` keyword is used in modern Java `switch` expressions.",
+              "a": "It is used inside switch expressions to return a value from a multi-line case block."
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "concept": "Design Patterns in Java",
+          "description": "Design patterns are battle-tested, standard architectural solutions to common software design problems. Creational patterns (Singleton, Factory, Builder) deal with object creation. Structural patterns (Adapter, Decorator, Proxy) deal with object composition. Behavioral patterns (Observer, Strategy, Command) deal with communication between objects. Expert developers don't just write code; they apply patterns to ensure systems are loosely coupled and maintainable.",
+          "real_world_example": "The Singleton Pattern is like the President of a country. There can only be one President at any given time. Regardless of who asks for the President, they always get directed to the exact same person. In Java, this is heavily used for Database Connection Pools and Configuration Managers.",
+          "code": "// Singleton Pattern using Double-Checked Locking\npublic class DatabaseConnection {\n    private static volatile DatabaseConnection instance;\n    \n    private DatabaseConnection() {} // Prevent external instantiation\n    \n    public static DatabaseConnection getInstance() {\n        if (instance == null) {\n            synchronized (DatabaseConnection.class) {\n                if (instance == null) instance = new DatabaseConnection();\n            }\n        }\n        return instance;\n    }\n}",
+          "practice_questions": [
+            {
+              "q": "Why is the constructor made `private` in the Singleton pattern?",
+              "a": "To explicitly prevent any external class from instantiating the object, ensuring only one instance exists."
+            },
+            {
+              "q": "Explain the Observer pattern and how it relates to event-driven programming.",
+              "a": "A Subject maintains a list of Observers. When the Subject's state changes, it automatically notifies all Observers."
+            },
+            {
+              "q": "What problem does the Builder pattern solve when dealing with object instantiation?",
+              "a": "It simplifies creating complex objects with many optional parameters, avoiding massive 'telescoping' constructors."
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "concept": "JVM Internals & Performance Tuning",
+          "description": "Experts must understand the JVM memory layout (Heap vs Metaspace/PermGen), how the Classloader subsystem works (Bootstrap, Extension, Application loaders), and how to tune the JVM for specific workloads using flags. Tuning involves adjusting Heap limits (`-Xms`, `-Xmx`) and selecting the appropriate Garbage Collector algorithm (G1GC, ZGC, Shenandoah) based on latency and throughput requirements.",
+          "real_world_example": "Tuning a JVM is exactly like tuning a high-performance race car engine. If you allocate too much fuel (Heap Memory), the car becomes heavy and sluggish (long GC pauses). If you don't allocate enough, the engine stalls out (OutOfMemoryError). You choose different tires (GC Algorithms) depending on if you are racing on a smooth track (low latency needs) or off-road (high throughput needs).",
+          "code": "# Running a Java application in production with optimized JVM tuning flags\n# -Xms4G: Initial heap size of 4 Gigabytes\n# -Xmx4G: Maximum heap size of 4 Gigabytes (prevents OS resizing overhead)\n# -XX:+UseZGC: Enables the ultra-low latency Z Garbage Collector\njava -Xms4G -Xmx4G -XX:+UseZGC -jar high-performance-app.jar",
+          "practice_questions": [
+            {
+              "q": "Why is it a recommended best practice to set `-Xms` and `-Xmx` to the exact same value in production?",
+              "a": "It prevents the JVM from constantly pausing the application to resize the heap memory dynamically."
+            },
+            {
+              "q": "What is the difference between a `ClassNotFoundException` and a `NoClassDefFoundError` in the context of Classloaders?",
+              "a": "ClassNotFoundException occurs when explicitly loading a class via reflection. NoClassDefFoundError occurs when a class was present during compile-time but is missing at runtime."
+            },
+            {
+              "q": "What specific performance problem was the G1 Garbage Collector designed to solve over the older Parallel GC?",
+              "a": "It minimizes lengthy 'Stop-The-World' pauses by concurrently collecting memory in small, prioritized regions rather than the whole heap."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_concepts": 22,
+    "levels": {
+      "Beginner": 6,
+      "Intermediate": 6,
+      "Advanced": 5,
+      "Top-Notch": 5,
+      "Object-Oriented Programming (OOP)": 5
+    },
+    "standards_covered": [
+      "Java 8",
+      "Java 11",
+      "Java 17",
+      "Java 21"
+    ],
+    "key_themes": [
+      "Object-Oriented Programming (OOP) and Architecture",
+      "Memory Management, Heap Allocation, and Garbage Collection",
+      "Collections Framework and Data Structures",
+      "Concurrency, Threads, and the Java Memory Model",
+      "Functional Programming in Java (Lambdas, Streams)",
+      "JVM Internals, Classloading, and Performance Tuning"
+    ]
+  }
+}
