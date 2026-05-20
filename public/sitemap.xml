@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://codingsvibes.space/</loc>
+    <loc>https://www.codingsvibes.space/</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://codingsvibes.space/cpp</loc>
+    <loc>https://www.codingsvibes.space/cpp</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://codingsvibes.space/rust</loc>
+    <loc>https://www.codingsvibes.space/rust</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://codingsvibes.space/java</loc>
+    <loc>https://www.codingsvibes.space/java</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://codingsvibes.space/spring-boot</loc>
+    <loc>https://www.codingsvibes.space/spring-boot</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://codingsvibes.space/hibernate</loc>
+    <loc>https://www.codingsvibes.space/hibernate</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://codingsvibes.space/docker</loc>
+    <loc>https://www.codingsvibes.space/docker</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://codingsvibes.space/microservices</loc>
+    <loc>https://www.codingsvibes.space/microservices</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://codingsvibes.space/react</loc>
+    <loc>https://www.codingsvibes.space/react</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
